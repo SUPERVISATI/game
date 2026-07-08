@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🏆 RANKING BUBBLE BOSS</title>
+    <style>
+        /* ============================================================
+           RESET E BASE - DESIGN ANDROID APP
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+        body {
+            background: #0f0f1a;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            padding: 12px 12px 80px 12px;
+            background-image: radial-gradient(ellipse at top, #1a1a3e 0%, #0a0a12 100%);
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           BOTÃO ESTILO ANDROID MATERIAL
+           ============================================================ */
+        .btn-android {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            touch-action: manipulation;
+            text-decoration: none;
+            min-height: 48px;
+            width: 100%;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-android:active {
+            transform: scale(0.96);
+        }
+
+        .btn-android.primary {
+            background: linear-gradient(135deg, #6C63FF, #5A52D5);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .btn-android.primary:active {
+            box-shadow: 0 2px 8px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn-android.gold {
+            background: linear-gradient(135deg, #FFD700, #F4A900);
+            color: #1a1a2e;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+            font-weight: 800;
+        }
+
+        .btn-android.gold:active {
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.15);
+        }
+
+        .btn-android.green {
+            background: linear-gradient(135deg, #00C853, #00A844);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.25);
+        }
+
+        .btn-android.green:active {
+            box-shadow: 0 2px 8px rgba(0, 200, 83, 0.15);
+        }
+
+        .btn-android.red {
+            background: linear-gradient(135deg, #FF5252, #D32F2F);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 82, 82, 0.25);
+        }
+
+        .btn-android.red:active {
+            box-shadow: 0 2px 8px rgba(255, 82, 82, 0.15);
+        }
+
+        .btn-android.orange {
+            background: linear-gradient(135deg, #FF9100, #E67E00);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 145, 0, 0.25);
+        }
+
+        .btn-android.orange:active {
+            box-shadow: 0 2px 8px rgba(255, 145, 0, 0.15);
+        }
+
+        .btn-android.small {
+            font-size: 12px;
+            padding: 8px 14px;
+            min-height: 36px;
+            width: auto;
+        }
+
+        .btn-android .icon {
+            font-size: 18px;
+        }
+
+        /* ============================================================
+           TOP BAR - ESTILO APP
+           ============================================================ */
+        .app-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 4px 16px 4px;
+            gap: 10px;
+        }
+
+        .app-topbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-topbar .logo .icon {
+            font-size: 28px;
+        }
+
+        .app-topbar .logo h1 {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .app-topbar .logo h1 span {
+            font-weight: 400;
+            font-size: 12px;
+            -webkit-text-fill-color: #888;
+            display: block;
+            margin-top: -2px;
+        }
+
+        .app-topbar .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.06);
+            padding: 6px 12px 6px 8px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.06);
+            min-width: 0;
+            flex-shrink: 1;
+        }
+
+        .app-topbar .user-badge .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6C63FF, #3D34B8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .app-topbar .user-badge .info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .app-topbar .user-badge .info .name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80px;
+        }
+
+        .app-topbar .user-badge .info .coins {
+            font-size: 11px;
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           CARD RANKING PRINCIPAL
+           ============================================================ */
+        .ranking-main-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .ranking-main-card .header-rank {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .ranking-main-card .header-rank .title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ranking-main-card .header-rank .badge-count {
+            background: rgba(255,215,0,0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           STATS ROW - ESTILO ANDROID
+           ============================================================ */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            background: rgba(255,255,255,0.04);
+            border-radius: 14px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .stat-item .emoji {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .stat-item .label {
+            font-size: 10px;
+            color: #888;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-item .value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #FFD700;
+            margin-top: 2px;
+        }
+
+        .stat-item .value.silver {
+            color: #C0C0C0;
+        }
+
+        /* ============================================================
+           SEARCH - ESTILO ANDROID
+           ============================================================ */
+        .search-android {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .search-android input {
+            flex: 1;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+            min-height: 48px;
+        }
+
+        .search-android input:focus {
+            border-color: #6C63FF;
+        }
+
+        .search-android input::placeholder {
+            color: #555;
+        }
+
+        .search-android .btn-android {
+            min-height: 48px;
+            width: 48px;
+            padding: 0;
+            flex-shrink: 0;
+            border-radius: 12px;
+            font-size: 18px;
+        }
+
+        /* ============================================================
+           LISTA DE RANKING - ESTILO ANDROID
+           ============================================================ */
+        .ranking-list-container {
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .ranking-list-container::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .ranking-list-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+        }
+
+        .ranking-list-container::-webkit-scrollbar-thumb {
+            background: #6C63FF;
+            border-radius: 10px;
+        }
+
+        .rank-item {
+            display: grid;
+            grid-template-columns: 32px 28px 1fr auto;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            transition: background 0.2s;
+            min-height: 48px;
+        }
+
+        .rank-item:active {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .rank-item.player-highlight {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .rank-item .pos {
+            font-size: 13px;
+            font-weight: 700;
+            color: #666;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .rank-item .pos.top1 { color: #FFD700; }
+        .rank-item .pos.top2 { color: #C0C0C0; }
+        .rank-item .pos.top3 { color: #CD7F32; }
+
+        .rank-item .medal {
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .rank-item .r-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rank-item .r-name.player-name {
+            color: #FFD700;
+        }
+
+        .rank-item .r-name .star {
+            color: #FFD700;
+            margin-right: 4px;
+        }
+
+        .rank-item .r-coins {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FFD700;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .rank-item .r-badge {
+            display: none;
+        }
+
+        /* Badge pequeno no lugar do medalha */
+        .rank-item .badge-mini {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 24px;
+        }
+
+        .badge-mini.gold { background: #FFD700; color: #1a1a2e; }
+        .badge-mini.silver { background: #C0C0C0; color: #1a1a2e; }
+        .badge-mini.bronze { background: #CD7F32; color: #fff; }
+        .badge-mini.platinum { background: #E5E4E2; color: #1a1a2e; }
+        .badge-mini.diamond { background: #B9F2FF; color: #1a1a2e; }
+        .badge-mini.default { background: rgba(255,255,255,0.08); color: #888; }
+        .badge-mini.you { background: #FFD700; color: #1a1a2e; animation: pulseBadge 1.5s ease-in-out infinite; }
+
+        @keyframes pulseBadge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* ============================================================
+           LEGENDA - ESTILO ANDROID
+           ============================================================ */
+        .legend-android {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            padding: 12px 8px;
+            margin-top: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .legend-android .item {
+            font-size: 11px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+
+        .legend-android .item .dot {
+            font-size: 14px;
+        }
+
+        /* ============================================================
+           BOTTOM ACTIONS - ESTILO ANDROID
+           ============================================================ */
+        .bottom-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 16px;
+            position: sticky;
+            bottom: 0;
+            padding: 12px 0 4px 0;
+            background: linear-gradient(to top, #0f0f1a 60%, transparent);
+        }
+
+        .bottom-actions .btn-android {
+            font-size: 13px;
+        }
+
+        /* ============================================================
+           MODAL - ESTILO ANDROID
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(16px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-android {
+            background: #1a1a2e;
+            border-radius: 28px;
+            padding: 32px 24px 28px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(40px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-android .emoji-big {
+            font-size: 56px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .modal-android h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #FFD700;
+            margin-bottom: 8px;
+        }
+
+        .modal-android p {
+            font-size: 14px;
+            color: #aaa;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-android input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 14px;
+            border: 2px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 16px;
+            text-align: center;
+            min-height: 52px;
+        }
+
+        .modal-android input:focus {
+            border-color: #6C63FF;
+        }
+
+        .modal-android input::placeholder {
+            color: #555;
+        }
+
+        .modal-android .hint {
+            font-size: 12px;
+            color: #555;
+            margin-top: 12px;
+        }
+
+        /* ============================================================
+           NOTIFICAÇÃO - ESTILO ANDROID
+           ============================================================ */
+        .snackbar {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a2e;
+            padding: 14px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 90%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .snackbar.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .snackbar .icon {
+            font-size: 20px;
+        }
+
+        /* ============================================================
+           RESPONSIVIDADE EXTRA
+           ============================================================ */
+        @media (max-width: 400px) {
+            body {
+                padding: 8px 8px 70px 8px;
+            }
+
+            .app-topbar .logo h1 {
+                font-size: 15px;
+            }
+
+            .app-topbar .user-badge .info .name {
+                max-width: 60px;
+                font-size: 12px;
+            }
+
+            .rank-item {
+                grid-template-columns: 26px 22px 1fr auto;
+                gap: 6px;
+                padding: 8px 10px;
+                min-height: 42px;
+            }
+
+            .rank-item .pos {
+                font-size: 11px;
+            }
+            .rank-item .medal {
+                font-size: 15px;
+            }
+            .rank-item .r-name {
+                font-size: 12px;
+            }
+            .rank-item .r-coins {
+                font-size: 11px;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+            }
+
+            .stat-item {
+                padding: 8px 4px;
+            }
+            .stat-item .value {
+                font-size: 14px;
+            }
+            .stat-item .label {
+                font-size: 8px;
+            }
+            .stat-item .emoji {
+                font-size: 16px;
+            }
+
+            .modal-android {
+                padding: 24px 16px 20px;
+            }
+            .modal-android .emoji-big {
+                font-size: 44px;
+            }
+            .modal-android h2 {
+                font-size: 18px;
+            }
+            .modal-android p {
+                font-size: 13px;
+            }
+            .modal-android input {
+                font-size: 14px;
+                min-height: 44px;
+                padding: 10px 14px;
+            }
+
+            .bottom-actions {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .btn-android {
+                font-size: 12px;
+                padding: 10px 16px;
+                min-height: 42px;
+            }
+
+            .snackbar {
+                font-size: 12px;
+                padding: 10px 18px;
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .app-topbar .logo .icon {
+                font-size: 22px;
+            }
+            .app-topbar .logo h1 {
+                font-size: 13px;
+            }
+            .app-topbar .logo h1 span {
+                font-size: 10px;
+            }
+            .app-topbar .user-badge {
+                padding: 4px 10px 4px 6px;
+            }
+            .app-topbar .user-badge .avatar {
+                width: 26px;
+                height: 26px;
+                font-size: 13px;
+            }
+            .app-topbar .user-badge .info .name {
+                font-size: 11px;
+                max-width: 50px;
+            }
+            .app-topbar .user-badge .info .coins {
+                font-size: 10px;
+            }
+        }
+
+        /* Animação de entrada dos itens */
+        .rank-item {
+            opacity: 0;
+            animation: fadeItem 0.25s ease forwards;
+        }
+        .rank-item:nth-child(1) { animation-delay: 0.02s; }
+        .rank-item:nth-child(2) { animation-delay: 0.04s; }
+        .rank-item:nth-child(3) { animation-delay: 0.06s; }
+        .rank-item:nth-child(4) { animation-delay: 0.08s; }
+        .rank-item:nth-child(5) { animation-delay: 0.10s; }
+        .rank-item:nth-child(6) { animation-delay: 0.12s; }
+        .rank-item:nth-child(7) { animation-delay: 0.14s; }
+        .rank-item:nth-child(8) { animation-delay: 0.16s; }
+        .rank-item:nth-child(9) { animation-delay: 0.18s; }
+        .rank-item:nth-child(10) { animation-delay: 0.20s; }
+
+        @keyframes fadeItem {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    SNACKBAR (NOTIFICAÇÃO)
+    ============================================================ -->
+    <div class="snackbar" id="snackbar">
+        <span class="icon">✅</span>
+        <span id="snackbarMessage">Atualizado!</span>
+    </div>
+
+    <!-- ============================================================
+    TOP BAR
+    ============================================================ -->
+    <div class="app-topbar">
+        <div class="logo">
+            <span class="icon">🏆</span>
+            <div>
+                <h1>BUBBLE BOSS <span>Ranking Global</span></h1>
+            </div>
+        </div>
+        <div class="user-badge" id="userBadge">
+            <div class="avatar">👤</div>
+            <div class="info">
+                <span class="name" id="userName">Visitante</span>
+                <span class="coins" id="userCoins">🪙 0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    CARD PRINCIPAL DO RANKING
+    ============================================================ -->
+    <div class="ranking-main-card">
+        <div class="header-rank">
+            <span class="title">📊 RANKING</span>
+            <span class="badge-count" id="totalPlayersBadge">0 jogadores</span>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="emoji">👥</span>
+                <div class="label">Total</div>
+                <div class="value" id="totalPlayers">0</div>
+            </div>
+            <div class="stat-item">
+                <span class="emoji">⭐</span>
+                <div class="label">Sua Posição</div>
+                <div class="value silver" id="playerPosition">-</div>
+            </div>
+            <div class="stat-item">
+                <span class="emoji">🪙</span>
+                <div class="label">Moedas Total</div>
+                <div class="value" id="totalCoinsRanking">0</div>
+            </div>
+        </div>
+
+        <!-- SEARCH -->
+        <div class="search-android">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar jogador..." oninput="filterRanking()">
+            <button class="btn-android red" onclick="document.getElementById('searchInput').value=''; filterRanking();" style="width:48px;padding:0;font-size:18px;">✕</button>
+        </div>
+
+        <!-- LISTA -->
+        <div class="ranking-list-container" id="rankingContainer">
+            <div id="rankingList">
+                <!-- Renderizado via JS -->
+            </div>
+        </div>
+
+        <!-- LEGENDA -->
+        <div class="legend-android">
+            <span class="item"><span class="dot">🥇🥈🥉</span> Top 3</span>
+            <span class="item"><span class="dot">🎖️</span> 4º-60º</span>
+            <span class="item"><span class="dot">🏅</span> 61º-90º</span>
+            <span class="item"><span class="dot">🎮</span> 91º+</span>
+            <span class="item"><span class="dot">⭐</span> Você</span>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    BOTÕES DE AÇÃO
+    ============================================================ -->
+    <div class="bottom-actions">
+        <button class="btn-android gold" onclick="updateRanking()">
+            <span class="icon">🔄</span> ATUALIZAR
+        </button>
+        <a href="game.html" class="btn-android primary">
+            <span class="icon">🎮</span> JOGAR
+        </a>
+        <a href="controlesmouseIG.html" class="btn-android orange" style="grid-column:1/-1;">
+            <span class="icon">📖</span> COMO JOGAR
+        </a>
+    </div>
+
+    <script>
+        // ============================================================
+        // 📊 LISTA COMPLETA DOS 119 JOGADORES FICTÍCIOS
+        // ============================================================
+        const FAKE_PLAYERS = [
+            { name: 'Bruninho', days: 128, coins: 1992392 },
+            { name: 'Yuki Tanaka', days: 100, coins: 1991845 },
+            { name: 'Michael Scott', days: 76, coins: 1991201 },
+            { name: 'Ana Clara', days: 52, coins: 1073499 },
+            { name: 'Takeshi Yamamoto', days: 48, coins: 1028999 },
+            { name: 'Jessica Williams', days: 42, coins: 987699 },
+            { name: 'Pedro Henrique', days: 37, coins: 945099 },
+            { name: 'Haruto Sato', days: 34, coins: 912399 },
+            { name: 'Emily Johnson', days: 29, coins: 887198 },
+            { name: 'Rafaela Souza', days: 27, coins: 852698 },
+            { name: 'Kenjiro Watanabe', days: 24, coins: 817298 },
+            { name: 'Christopher Lee', days: 24, coins: 785998 },
+            { name: 'Gabriel Martins', days: 19, coins: 747198 },
+            { name: 'Hinata Nakamura', days: 20, coins: 710498 },
+            { name: 'Amanda Torres', days: 17, coins: 674898 },
+            { name: 'Renato Cardoso', days: 17, coins: 642873 },
+            { name: 'Sakura Kobayashi', days: 14, coins: 609573 },
+            { name: 'James Anderson', days: 12, coins: 587273 },
+            { name: 'Lucas Ferreira', days: 11, coins: 553973 },
+            { name: 'Rin Sasaki', days: 11, coins: 520673 },
+            { name: 'Daniel Oliveira', days: 8, coins: 498008 },
+            { name: 'Mei Suzuki', days: 7, coins: 465708 },
+            { name: 'Kevin Brown', days: 8, coins: 432408 },
+            { name: 'Thiago Rocha', days: 8, coins: 399108 },
+            { name: 'Aoi Ito', days: 8, coins: 376808 },
+            { name: 'Nathan Miller', days: 5, coins: 354608 },
+            { name: 'Camila Nunes', days: 7, coins: 332408 },
+            { name: 'Ryo Tanaka', days: 6, coins: 310208 },
+            { name: 'Dylan Murphy', days: 7, coins: 298008 },
+            { name: 'Isabela Melo', days: 3, coins: 278083 },
+            { name: 'Kaori Inoue', days: 2, coins: 255883 },
+            { name: 'Ethan Hunt', days: 4, coins: 233683 },
+            { name: 'Matheus Araújo', days: 3, coins: 211483 },
+            { name: 'Hiroshi Nomura', days: 1, coins: 199283 },
+            { name: 'Sophia Chen', days: 3, coins: 178083 },
+            { name: 'Felipe Barros', days: 0, coins: 155883 },
+            { name: 'Momo Fujita', days: 2, coins: 133683 },
+            { name: 'Ryan Cooper', days: 0, coins: 111483 },
+            { name: 'Gustavo Lima', days: 1, coins: 100183 },
+            { name: 'Yuna Kimura', days: 2, coins: 89183 },
+            { name: 'Tyler Adams', days: 2, coins: 78083 },
+            { name: 'Vinicius Castro', days: 0, coins: 68893 },
+            { name: 'Akari Yamada', days: 0, coins: 57793 },
+            { name: 'Owen Parker', days: 1, coins: 46693 },
+            { name: 'Juliana Rangel', days: 1, coins: 35593 },
+            { name: 'Kaito Nakamura', days: 1, coins: 31093 },
+            { name: 'Zoe Martinez', days: 1, coins: 26693 },
+            { name: 'Cauã Ribeiro', days: 2, coins: 21993 },
+            { name: 'Bruno ⭐', days: 1, coins: 20047 },
+            { name: 'Leo Takagi', days: 1, coins: 17893 },
+            { name: 'Mia Chen', days: 0, coins: 16893 },
+            { name: 'Ryu Yamamoto', days: 0, coins: 15893 },
+            { name: 'Sofia Martinez', days: 1, coins: 14893 },
+            { name: 'Kenji Suzuki', days: 0, coins: 13893 },
+            { name: 'Emma Wilson', days: 0, coins: 12893 },
+            { name: 'Lucas Santos', days: 1, coins: 11893 },
+            { name: 'Yuki Sato', days: 0, coins: 10893 },
+            { name: 'Isabella Costa', days: 0, coins: 9893 },
+            { name: 'Taro Tanaka', days: 0, coins: 8893 },
+            { name: 'Maya Johnson', days: 0, coins: 7893 },
+            { name: 'Rafael Mendes', days: 0, coins: 6893 },
+            { name: 'Hana Kim', days: 0, coins: 5893 },
+            { name: 'Diego Silva', days: 0, coins: 4893 },
+            { name: 'Aiko Nakamura', days: 0, coins: 3893 },
+            { name: 'Oliver Brown', days: 0, coins: 2893 },
+            { name: 'Clara Oliveira', days: 0, coins: 1893 },
+            { name: 'Haru Tanaka', days: 0, coins: 1493 },
+            { name: 'Mei Lin', days: 0, coins: 1393 },
+            { name: 'Ryu Watanabe', days: 0, coins: 1293 },
+            { name: 'Sakura Ito', days: 0, coins: 1193 },
+            { name: 'Hiro Nakamura', days: 0, coins: 1093 },
+            { name: 'Yuna Sato', days: 0, coins: 993 },
+            { name: 'Kaito Suzuki', days: 0, coins: 893 },
+            { name: 'Aoi Yamada', days: 0, coins: 793 },
+            { name: 'Ren Yamamoto', days: 0, coins: 693 },
+            { name: 'Momo Kimura', days: 0, coins: 593 },
+            { name: 'Shin Takahashi', days: 0, coins: 493 },
+            { name: 'Rin Kobayashi', days: 0, coins: 393 },
+            { name: 'Kei Nakamura', days: 0, coins: 293 },
+            { name: 'Aya Tanaka', days: 0, coins: 193 },
+            { name: 'Yuki Ito', days: 0, coins: 93 },
+            { name: 'Sora Watanabe', days: 0, coins: 73 },
+            { name: 'Mira Sato', days: 0, coins: 53 },
+            { name: 'Kai Suzuki', days: 0, coins: 33 },
+            { name: 'Rei Tanaka', days: 0, coins: 13 },
+            { name: 'Nina Takahashi', days: 0, coins: 8 },
+            { name: 'Leo Yamamoto', days: 0, coins: 5 },
+            { name: 'Mia Suzuki', days: 0, coins: 3 },
+            { name: 'Ken Watanabe', days: 0, coins: 1 },
+            { name: 'Rina Sato', days: 0, coins: 1 }
+        ];
+
+        // ============================================================
+        // 🗄️ SISTEMA DE ARMAZENAMENTO
+        // ============================================================
+        const StorageManager = {
+            get(key, defaultValue = null) {
+                try {
+                    const data = localStorage.getItem(key);
+                    return data ? JSON.parse(data) : defaultValue;
+                } catch (e) {
+                    return defaultValue;
+                }
+            },
+            set(key, value) {
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+        };
+
+        // ============================================================
+        // 👤 SISTEMA DE JOGADOR
+        // ============================================================
+        const PlayerManager = {
+            getPlayer() {
+                return StorageManager.get('playerData', null);
+            },
+            getPlayerName() {
+                const player = this.getPlayer();
+                return player ? player.name : null;
+            },
+            getPlayerCoins() {
+                const player = this.getPlayer();
+                return player ? player.totalCoins || 0 : 0;
+            },
+            createPlayer(name) {
+                const playerData = {
+                    name: name,
+                    totalCoins: 0,
+                    level: 1,
+                    levelCoins: {},
+                    created: new Date().toISOString(),
+                    lastUpdate: new Date().toISOString()
+                };
+                return StorageManager.set('playerData', playerData);
+            },
+            addCoinsAndDistribute(amount) {
+                const player = this.getPlayer();
+                if (!player) return false;
+
+                const sharePercent = 0.20;
+                const shareAmount = Math.floor(amount * sharePercent);
+                const playerAmount = amount - shareAmount;
+
+                player.totalCoins = (player.totalCoins || 0) + playerAmount;
+                player.lastUpdate = new Date().toISOString();
+                StorageManager.set('playerData', player);
+
+                if (shareAmount > 0 && FAKE_PLAYERS.length > 0) {
+                    const activeFakes = FAKE_PLAYERS.filter(p => p.coins !== undefined);
+                    if (activeFakes.length > 0) {
+                        const perPlayer = Math.floor(shareAmount / activeFakes.length);
+                        activeFakes.forEach(fake => {
+                            fake.coins = (fake.coins || 0) + perPlayer;
+                        });
+                        StorageManager.set('fakePlayersData', FAKE_PLAYERS);
+                    }
+                }
+
+                return true;
+            }
+        };
+
+        // ============================================================
+        // 🏆 SISTEMA DE RANKING
+        // ============================================================
+        const RankingManager = {
+            getMedalForPosition(position) {
+                if (position <= 3) return ['🥇', '🥈', '🥉'][position - 1] || '🥇';
+                if (position <= 60) return '🎖️';
+                if (position <= 90) return '🏅';
+                return '🎮';
+            },
+
+            getBadgeClass(position) {
+                if (position <= 3) return 'gold';
+                if (position <= 60) return 'platinum';
+                if (position <= 90) return 'diamond';
+                return 'default';
+            },
+
+            getPosClass(position) {
+                if (position === 1) return 'top1';
+                if (position === 2) return 'top2';
+                if (position === 3) return 'top3';
+                return '';
+            },
+
+            formatCoins(coins) {
+                return '🪙 ' + Math.floor(coins).toLocaleString('pt-BR');
+            },
+
+            getAllPlayers() {
+                const player = PlayerManager.getPlayer();
+                const fakes = FAKE_PLAYERS.map(p => ({
+                    ...p,
+                    isFake: true
+                }));
+
+                if (player) {
+                    const playerEntry = {
+                        name: player.name,
+                        coins: player.totalCoins || 0,
+                        days: 0,
+                        isFake: false,
+                        isPlayer: true
+                    };
+                    return [...fakes, playerEntry];
+                }
+
+                return fakes;
+            },
+
+            getRanking() {
+                const players = this.getAllPlayers();
+                return players.sort((a, b) => b.coins - a.coins);
+            },
+
+            getPlayerPosition() {
+                const ranking = this.getRanking();
+                const playerName = PlayerManager.getPlayerName();
+                if (!playerName) return '-';
+                const index = ranking.findIndex(p => p.name === playerName && !p.isFake);
+                return index !== -1 ? index + 1 : '-';
+            },
+
+            updateFakePlayers(playerCoins) {
+                const savedFakes = StorageManager.get('fakePlayersData', null);
+                const baseFakes = savedFakes && savedFakes.length === FAKE_PLAYERS.length ? savedFakes : FAKE_PLAYERS;
+
+                return baseFakes.map((player, index) => {
+                    const position = index + 1;
+                    let growthRate = 0;
+
+                    if (position <= 3) growthRate = 0.02;
+                    else if (position <= 60) growthRate = 0.05;
+                    else if (position <= 90) growthRate = 0.08;
+                    else growthRate = 0.12;
+
+                    const growth = Math.floor(playerCoins * growthRate * (0.2 + Math.random() * 0.3));
+                    const randomBonus = Math.floor(Math.random() * 50) - 25;
+                    const newCoins = Math.max(1, player.coins + growth + randomBonus);
+
+                    return {
+                        ...player,
+                        coins: newCoins,
+                        days: player.days + (Math.random() > 0.7 ? 1 : 0)
+                    };
+                });
+            }
+        };
+
+        // ============================================================
+        // 🎨 FUNÇÕES DE INTERFACE
+        // ============================================================
+
+        function showSnackbar(message, emoji = '✅') {
+            const snackbar = document.getElementById('snackbar');
+            const messageEl = document.getElementById('snackbarMessage');
+            const iconEl = snackbar.querySelector('.icon');
+
+            iconEl.textContent = emoji;
+            messageEl.textContent = message;
+            snackbar.classList.add('show');
+
+            clearTimeout(snackbar._timeout);
+            snackbar._timeout = setTimeout(() => {
+                snackbar.classList.remove('show');
+            }, 3000);
+        }
+
+        function renderRanking(players) {
+            const list = document.getElementById('rankingList');
+            const playerName = PlayerManager.getPlayerName();
+
+            list.innerHTML = '';
+
+            if (!players || players.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align:center;padding:30px 16px;color:#555;font-size:14px;font-weight:500;">
+                        Nenhum jogador encontrado
+                    </div>
+                `;
+                return;
+            }
+
+            players.forEach((player, index) => {
+                const position = index + 1;
+                const isPlayer = player.isPlayer || (player.name === playerName && !player.isFake);
+                const item = document.createElement('div');
+                item.className = 'rank-item';
+                if (isPlayer) {
+                    item.classList.add('player-highlight');
+                }
+
+                const medal = RankingManager.getMedalForPosition(position);
+                const badgeClass = isPlayer ? 'you' : RankingManager.getBadgeClass(position);
+                const posClass = RankingManager.getPosClass(position);
+                const displayName = player.name || 'Anônimo';
+                const nameDisplay = isPlayer ? `<span class="star">⭐</span>${displayName}` : displayName;
+
+                item.innerHTML = `
+                    <div class="pos ${posClass}">#${position}</div>
+                    <div class="medal">${medal}</div>
+                    <div class="r-name ${isPlayer ? 'player-name' : ''}">${nameDisplay}</div>
+                    <div class="r-coins">${RankingManager.formatCoins(player.coins)}</div>
+                `;
+
+                list.appendChild(item);
+            });
+
+            // Atualiza stats
+            const total = players.length;
+            const simulatedTotal = Math.floor(Math.random() * (1569533 - 598052 + 1)) + 598052;
+            document.getElementById('totalPlayers').textContent = simulatedTotal.toLocaleString('pt-BR');
+            document.getElementById('totalPlayersBadge').textContent = simulatedTotal.toLocaleString('pt-BR') + ' jogadores';
+
+            const playerPos = RankingManager.getPlayerPosition();
+            document.getElementById('playerPosition').textContent = playerPos !== '-' ? playerPos + 'º' : '-';
+
+            const totalCoins = players.reduce((sum, p) => sum + p.coins, 0);
+            document.getElementById('totalCoinsRanking').textContent = Math.floor(totalCoins).toLocaleString('pt-BR');
+
+            // Atualiza usuário
+            const player = PlayerManager.getPlayer();
+            if (player) {
+                document.getElementById('userName').textContent = player.name;
+                document.getElementById('userCoins').textContent = '🪙 ' + Math.floor(player.totalCoins || 0).toLocaleString('pt-BR');
+            } else {
+                document.getElementById('userName').textContent = 'Visitante';
+                document.getElementById('userCoins').textContent = '🪙 0';
+            }
+        }
+
+        function filterRanking() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const players = RankingManager.getRanking();
+
+            if (!searchTerm) {
+                renderRanking(players);
+                return;
+            }
+
+            const filtered = players.filter(p =>
+                p.name && p.name.toLowerCase().includes(searchTerm)
+            );
+
+            renderRanking(filtered);
+        }
+
+        function updateRanking() {
+            showSnackbar('Atualizando ranking...', '🔄');
+
+            const player = PlayerManager.getPlayer();
+            if (player) {
+                const earnedCoins = Math.floor(Math.random() * 4900) + 100;
+                
+                PlayerManager.addCoinsAndDistribute(earnedCoins);
+                
+                const updatedPlayer = PlayerManager.getPlayer();
+                
+                const updatedFakes = RankingManager.updateFakePlayers(updatedPlayer.totalCoins || 0);
+                updatedFakes.forEach((fake, index) => {
+                    if (FAKE_PLAYERS[index]) {
+                        FAKE_PLAYERS[index].coins = fake.coins;
+                        FAKE_PLAYERS[index].days = fake.days;
+                    }
+                });
+                StorageManager.set('fakePlayersData', FAKE_PLAYERS);
+
+                const allPlayers = RankingManager.getAllPlayers();
+                const sorted = allPlayers.sort((a, b) => b.coins - a.coins);
+                renderRanking(sorted);
+                
+                showSnackbar(`+${earnedCoins.toLocaleString()} moedas! 20% compartilhado`, '💰');
+            } else {
+                const fakes = FAKE_PLAYERS.map(p => ({ ...p, isFake: true }));
+                renderRanking(fakes);
+                showSnackbar('Cadastre-se para participar!', '⚠️');
+            }
+        }
+
+        // ============================================================
+        // 🔐 MODAL DE CADASTRO - ESTILO ANDROID
+        // ============================================================
+        function showRegistrationModal() {
+            if (document.querySelector('.modal-overlay')) return;
+
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'registrationModal';
+
+            overlay.innerHTML = `
+                <div class="modal-android">
+                    <span class="emoji-big">🚀</span>
+                    <h2>Entre no Ranking!</h2>
+                    <p>Cadastre-se e comece a competir<br>com milhões de jogadores</p>
+                    <input type="text" id="playerNameInput" placeholder="Digite seu nome..." maxlength="20" autocomplete="off">
+                    <button class="btn-android gold" id="confirmPlayerName" style="width:100%;">
+                        🎮 ENTRAR NO RANKING
+                    </button>
+                    <div class="hint">⭐ Seu progresso será salvo automaticamente</div>
+                </div>
+            `;
+
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => {
+                const input = document.getElementById('playerNameInput');
+                if (input) input.focus();
+            }, 400);
+
+            document.getElementById('confirmPlayerName').addEventListener('click', function() {
+                const nameInput = document.getElementById('playerNameInput');
+                const name = nameInput.value.trim();
+
+                if (!name || name.length < 2) {
+                    nameInput.style.borderColor = '#FF5252';
+                    nameInput.value = '';
+                    nameInput.placeholder = '⚠️ Mínimo 2 caracteres!';
+                    nameInput.focus();
+                    return;
+                }
+
+                PlayerManager.createPlayer(name);
+                overlay.remove();
+                document.body.style.overflow = '';
+                showSnackbar(`Bem-vindo(a), ${name}! 🎉`, '👋');
+                updateRanking();
+            });
+
+            document.getElementById('playerNameInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('confirmPlayerName').click();
+                }
+            });
+        }
+
+        // ============================================================
+        // 🚀 INICIALIZAÇÃO
+        // ============================================================
+        function initRanking() {
+            const player = PlayerManager.getPlayer();
+
+            if (!player) {
+                showRegistrationModal();
+                const fakes = FAKE_PLAYERS.map(p => ({ ...p, isFake: true }));
+                renderRanking(fakes);
+                return;
+            }
+
+            const savedFakes = StorageManager.get('fakePlayersData', null);
+            if (savedFakes && savedFakes.length === FAKE_PLAYERS.length) {
+                savedFakes.forEach((fake, index) => {
+                    if (FAKE_PLAYERS[index]) {
+                        FAKE_PLAYERS[index].coins = fake.coins;
+                        FAKE_PLAYERS[index].days = fake.days;
+                    }
+                });
+            }
+
+            const allPlayers = RankingManager.getAllPlayers();
+            const sorted = allPlayers.sort((a, b) => b.coins - a.coins);
+            renderRanking(sorted);
+
+            setInterval(() => {
+                const currentPlayer = PlayerManager.getPlayer();
+                if (currentPlayer) {
+                    const updatedFakes = RankingManager.updateFakePlayers(currentPlayer.totalCoins || 0);
+                    updatedFakes.forEach((fake, index) => {
+                        if (FAKE_PLAYERS[index]) {
+                            FAKE_PLAYERS[index].coins = fake.coins;
+                            FAKE_PLAYERS[index].days = fake.days;
+                        }
+                    });
+                    StorageManager.set('fakePlayersData', FAKE_PLAYERS);
+                    const all = RankingManager.getAllPlayers();
+                    const sortedAll = all.sort((a, b) => b.coins - a.coins);
+                    renderRanking(sortedAll);
+                }
+            }, 30000);
+
+            showSnackbar('Ranking carregado! 🏆', '🏆');
+        }
+
+        // ============================================================
+        // 🔄 EXPOR FUNÇÕES
+        // ============================================================
+        window.updateRanking = updateRanking;
+        window.filterRanking = filterRanking;
+        window.RankingManager = RankingManager;
+        window.PlayerManager = PlayerManager;
+        
+        window.collectCoins = function(amount) {
+            if (!PlayerManager.getPlayer()) {
+                showSnackbar('Cadastre-se primeiro!', '⚠️');
+                return false;
+            }
+            const success = PlayerManager.addCoinsAndDistribute(amount);
+            if (success) {
+                updateRanking();
+                showSnackbar(`+${amount.toLocaleString()} moedas!`, '💰');
+            }
+            return success;
+        };
+
+        document.addEventListener('DOMContentLoaded', initRanking);
+    </script>
+
+    <!-- ============================================================
+    🎵 MÚSICA DE FUNDO
+    ============================================================ -->
+    <audio id="bgMusic" loop volume="0.5">
+        <source src="nivel1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('bgMusic');
+            if (audio.paused) {
+                audio.play().catch(e => console.log('Autoplay bloqueado.'));
+            }
+        }, { once: true });
+
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('bgMusic');
+            audio.play().catch(e => {
+                console.log('Autoplay bloqueado. Aguardando interação.');
+            });
+        });
+    </script>
+
+</body>
+</html>

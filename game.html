@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>BUBBLE BOSS EXPLOSIVE - PREMIUM</title>
+    <link href="https://fonts.googleapis.com/css?family=Carter+One" rel="stylesheet">
+    <link rel="stylesheet" href="gamestyleev2.css" />
+   
+</head>
+<body>
+
+
+<!-- ============================================================
+PLAYER CHECK OVERLAY
+============================================================ -->
+<div class="player-check-overlay" id="playerCheckOverlay">
+    <div class="player-check-box">
+        <h1>👋</h1>
+        <h2>Welcome to the game!</h2>
+        <p class="subtitle">To join the leaderboard and save your progress,<br>Enter your name below:</p>
+        <div class="error-msg" id="errorMsg">⚠️ Enter a valid name (minimum 2 characters)</div>
+        <input type="text" id="playerNameInput" placeholder="Digite seu nome..." maxlength="25" autocomplete="off">
+        <button class="btn-confirm" id="confirmPlayerBtn">🎮 PLAY NOW</button>
+
+    </div>
+</div>
+
+<!-- ============================================================
+HUD - COM ESTILO DE BOTÃO
+============================================================ -->
+<div class="hud-container">
+    <div class="hud-left">
+        <button class="game-button small hud-button" id="hudTimer">
+            <span class="hud-label">⏱️ TIME</span>
+            <span class="hud-value" id="time-val">05:00</span>
+        </button>
+    </div>
+    <div class="hud-right">
+        <button class="game-button small orange hud-button" id="hudCoins">
+            <span class="hud-label">🪙 COINS</span>
+            <span class="hud-value" id="coin-val">0000</span>
+        </button>
+        <button class="game-button small red hud-button" id="hudLevel">
+            <span class="hud-label">🎯 Level</span>
+            <span class="hud-value" id="level-val">1</span>
+        </button>
+    </div>
+</div>
+
+<!-- BOSS HEALTH BAR -->
+<div class="boss-health-bar" id="bossHealthBar">
+    <div class="boss-name" id="bossName">BIG BOSS</div>
+    <div class="bar-fill" id="bossHealthFill" style="width: 100%"></div>
+    <div class="boss-hp-text" id="bossHpText">100%</div>
+</div>
+
+<!-- REMAINING CIRCLE -->
+<div class="remaining-circle status-high" id="remainingCircle">
+    <span class="label-top">Targets</span>
+    <div id="target-count" class="count">0</div>
+    <span class="label-bottom">Restam</span>
+</div>
+
+<!-- BARREIRA SUPERIOR -->
+<div class="barrier-hud" id="barrierHud">
+    <span class="shield-icon">🛡️</span>
+    <span class="barrier-text" id="barrierText">5600</span>
+</div>
+<div class="barrier-hit-effect" id="barrierHitEffect"></div>
+
+<!-- BOTÃO PAUSA -->
+ <button  class="btn-pause-game" id="btnPauseGame">FIREARMS</button>
+
+<!-- ============================================================
+PAUSE OVERLAY - FULLSCREEN
+============================================================ -->
+<div class="pause-overlay" id="pauseOverlay">
+    <div class="pause-box">
+        <div class="pause-header">
+          <button class="game-button orange" > <span class="pause-title">🛒 GUN SHOP<span></button> 
+            <button class="game-button red" id="btnHome">HOME</button>
+        </div>
+
+
+       <button class="game-button"> <div class="coin-balance">💰 BALANCE: <span id="pauseCoinBalance">0</span> </div></button><br>
+        <div class="weapons-grid" id="weaponsGrid"></div>
+        <div class="btn-actions">
+            <button class="game-button green large" id="btnResumeGame">▶ RESUME GAME</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+TELA DE BLOQUEIO DE NÍVEIS - LEVEL BLOCK OVERLAY
+============================================================ -->
+<div class="level-block-overlay" id="levelBlockOverlay">
+    <div class="level-block-box">
+        <div class="lock-icon">🔒</div>
+        <h1 id="blockLevelTitle">Level 6 Locked</h1>
+        <p class="block-subtitle" id="blockSubtitle">Unlock this level to continue your journey!</p>
+        
+        <div class="block-stats">
+            <div class="stat-row">
+                <span class="stat-label">🎯 Level</span>
+                <span class="stat-value" id="blockLevelNumber">6</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">💰 Unlock Cost</span>
+                <span class="stat-value" id="blockUnlockCost">100.000</span>
+            </div>
+            <div class="stat-row" style="border-bottom: 2px solid rgba(255,215,0,0.15); padding-bottom: 6px;">
+                <span class="stat-label">🪙 Your Balance</span>
+                <span class="stat-value" id="blockPlayerCoins">0</span>
+            </div>
+            <div class="stat-row" style="margin-top: 4px;">
+                <span class="stat-label" id="blockStatusLabel">🔐 Status</span>
+                <span class="stat-value unlock-status locked" id="blockStatus">Blocked</span>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-label">
+                <span>Unlock progress</span>
+                <span id="blockProgressText">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="blockProgressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- BOTÃO DESBLOQUEAR -->
+        <button class="game-button orange large btn-unlock" id="btnUnlockLevel">🔓 UNLOCK LEVEL</button>
+        
+        <!-- BOTÃO VOLTAR NÍVEL ANTERIOR -->
+        <button class="game-button cyan btn-back-level hidden" id="btnBackLevel">⬅ RETURN TO PREVIOUS LEVEL</button>
+        
+        <!-- BOTÃO FECHAR -->
+        <button class="game-button red btn-close-block" id="btnCloseBlock">✕ TO CLOSE</button>
+    </div>
+</div>
+
+<!-- ============================================================
+TELA DE GAME OVER - FULLSCREEN
+============================================================ -->
+<div class="game-over-screen" id="gameOverScreen">
+    <div class="game-over-box">
+        <h1>💥 GAME OVER</h1>
+        <div class="subtitle">Your barrier has been destroyed!</div>
+        <div class="final-stats">
+            <div><span class="label">Level Reached</span><span class="value" id="final-level">1</span></div>
+            <div><span class="label">Coins Collected</span><span class="value" id="final-coins">0</span></div>
+            <div><span class="label">Deaths</span><span class="value" id="final-targets">0</span></div>
+            <div><span class="label">Bosses Defeated</span><span class="value" id="final-bosses">0</span></div>
+        </div>
+        <button class="game-button red large btn-restart" id="btn-restart">🔄 PLAY AGAIN</button>
+    </div>
+</div>
+
+<!-- ============================================================
+TELA DE VITÓRIA - FULLSCREEN
+============================================================ -->
+<div class="victory-screen" id="victoryScreen">
+    <div class="confetti-container" id="confettiContainer">
+        <div class="confetti-piece square"></div>
+        <div class="confetti-piece circle"></div>
+        <div class="confetti-piece rectangle"></div>
+        <div class="confetti-piece square"></div>
+        <div class="confetti-piece circle"></div>
+        <div class="confetti-piece rectangle"></div>
+        <div class="confetti-piece square"></div>
+        <div class="confetti-piece circle"></div>
+        <div class="confetti-piece rectangle"></div>
+        <div class="confetti-piece square"></div>
+        <div class="confetti-piece circle"></div>
+        <div class="confetti-piece rectangle"></div>
+        <div class="confetti-piece square"></div>
+        <div class="confetti-piece circle"></div>
+        <div class="confetti-piece rectangle"></div>
+    </div>
+    <div class="victory-box">
+        <span class="trophy">🏆</span>
+        <h1>VICTORY!</h1>
+        <div class="subtitle">🎉 Congratulations! You have completed all 20 levels!</div>
+      <button class="game-button"> <div class="final-stats">
+            <div><span class="label">🏅 Completed Levels</span><span class="value">20/20</span></div>
+            <div><span class="label">🪙 Total Coins</span><span class="value gold-big" id="victory-coins">0</span></div>
+            <div><span class="label">💀 Deaths</span><span class="value" id="victory-targets">0</span></div>
+            <div><span class="label">👾 Bosses Defeated</span><span class="value" id="victory-bosses">0</span></div>
+        </div></button> 
+        <button class="game-button orange large btn-victory" id="btnVictoryRestart">🔄 CONTINUE PLAYING</button>
+    </div>
+</div>
+
+<!-- ============================================================
+TELA DE LEVEL TRANSITION - FULLSCREEN
+============================================================ -->
+<div class="level-transition-screen" id="levelTransitionScreen">
+    <div class="transition-box">
+    <br>
+    <button class="game-button orange" style="font-size:clamp(20px,4vw,45px);">🎯 LEVEL COMPLETED!</button>
+       
+       <br>
+        <button class="game-button green" id="transitionLevelName"  style="font-size:clamp(18px,3.5vw,40px);">Level 2</button>
+        <button class="game-button red" style="font-size:clamp(14px,2.5vw,30px);">
+        <div class="stats-grid">
+            <div class="stat-row">
+                <span class="stat-label">⏱️ Time Level: </span>
+                <span class="stat-value" id="transitionLevelTime">00:00</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">💀 Deaths: </span>
+                <span class="stat-value green" id="transitionLevelKills">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">🪙 Level Coins: </span>
+                <span class="stat-value pink" id="transitionLevelCoins">0</span>
+            </div>
+            <div class="stat-row" style="border-bottom: 2px solid rgba(255,215,0,0.2); padding-bottom: 6px; margin-bottom: 3px;">
+                <span class="stat-label" style="color: var(--gold);">💰 Total Score: </span>
+                <span class="stat-value" style="color: var(--gold); font-size: clamp(14px,2vw,22px);" id="transitionTotalCoins">0</span>
+            </div>
+        </div></button>
+        <button class="game-button large btn-continue" id="btnContinue">▶ CONTINUE PLAYING</button>
+    </div>
+</div>
+
+<!-- CANVAS -->
+<canvas id="gameCanvas"></canvas>
+<script src="playergamemv2.js"></script>
+
+
+</body>
+</html>
